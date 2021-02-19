@@ -26,13 +26,27 @@ const Todolist = ({ initialTasks }) => {
         setTasks(newTasks)
     }
 
+    const deleteTask = (taskId) => {
+        const newTasks = tasks.filter(task => {
+            return task.id !== taskId
+        })
+        setTasks(newTasks)
+    }
+
     return (
         <div className="TodoList">
             <div id="todo-header">
                 <h1>React Todo List</h1>
             </div>
             <AddForm addTask={addTask}/>
-            { tasks.length === 0 ? <h3>No todos yet 📄</h3> : tasks.map(task=> (<Todoitem key={task.id} id={task.id} name={task.name} completed={task.completed} handleDblClick={handleDblClick}/>)) }
+            { tasks.length === 0 ? <h3>No todos yet 📄</h3> : tasks.map(task=> (<Todoitem 
+                key={task.id} 
+                id={task.id} 
+                name={task.name} 
+                completed={task.completed} 
+                handleDblClick={handleDblClick} 
+                deleteTask={deleteTask}
+            />)) }
         </div>
     );
 }
