@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata&family=Poppins&display=swap');
+
+.TodoList{
+    margin: 50px auto;
+    padding: 20px;
+    width: 95%;
+    max-width: 558px;
+    background: #00695c;
+    border-radius: 3px;
+}
+.TodoList h3{
+    color: #f1f1f1;
+    text-align: center;
+    padding: 10px;
+}
+#todo-header{
+    font-family: 'Inconsolata', monospace;
+    display: grid;
+    place-items: center;
+    color: #fff;
+}
