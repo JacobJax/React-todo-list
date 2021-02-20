@@ -11,13 +11,21 @@ const AddForm = ({addTask}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+
+        if(!value){
+            alert('Please enter a task')
+            return
+        }
+        
         addTask(value)
+        setValue('')
     }
 
     return (
         <div className="addForm">
             <form onSubmit={handleSubmit}>
-                <input type="text" name="todo" onChange={handleChange}/>
+                <label htmlFor="name" style={{color: '#fff'}}>Add Task</label>
+                <input type="text" name="todo" value={value} onChange={handleChange}/>
                 <input type="submit" value="Add todo"/>
             </form>
         </div>
