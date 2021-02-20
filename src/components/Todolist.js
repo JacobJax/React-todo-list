@@ -1,13 +1,23 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './Todolist.css';
 import AddForm from './Addform'
 import Todoitem from './Todoitem'
 
-const Todolist = ({ initialTasks }) => {
+const Todolist = () => {
 
-    const [tasks, setTasks] = useState(initialTasks)
+    const [tasks, setTasks] = useState(null)
+    const [isLoading, setIsLoading] = useState(true)
 
-    const handleDblClick = (id) => {
+    const handleDblClick = async (id) => {
+        const task = await getSingleTask(id)
+        
+        const res = fetch(`http://localhost:8000/todos/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({...task, completed: true})
+        })
 
         const newTasks = tasks.map(task => {
             if(task.id === id){
@@ -18,35 +28,65 @@ const Todolist = ({ initialTasks }) => {
         setTasks(newTasks)
     }
 
-    const addTask = (taskName) => {
+    const addTask = async (taskName) => {
 
-        const rId = `task${Math.random() * 100}`
-        const newTasks = [...tasks, {id: rId, name: taskName, completed: false}]
-
-        setTasks(newTasks)
+        const res = await fetch('http://localhost:8000/todos',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({name: taskName, completed: false})
+        })
+        
+        const data = await res.json()
+        setTasks([...tasks, data])
     }
 
-    const deleteTask = (taskId) => {
+    const deleteTask = async (taskId) => {
+
+        const res = await fetch(`http://localhost:8000/todos/${taskId}`, {
+            method: 'DELETE'
+        })
         const newTasks = tasks.filter(task => {
             return task.id !== taskId
         })
         setTasks(newTasks)
     }
 
+    const getTasks = async () => {
+
+        const res = await fetch('http://localhost:8000/todos')
+        const data = await res.json()
+
+        setTasks(data)
+        setIsLoading(false)
+    }
+
+    const getSingleTask = async (id) => {
+        const res = await fetch(`http://localhost:8000/todos/${id}`)
+        return res.json()
+    }
+
+    useEffect(() => {getTasks()}, [])
+
     return (
         <div className="TodoList">
+
             <div id="todo-header">
                 <h1>React Todo List</h1>
             </div>
+
             <AddForm addTask={addTask}/>
-            { tasks.length === 0 ? <h3>No todos yet 📄</h3> : tasks.map(task=> (<Todoitem 
+
+            {isLoading && <p style={{textAlign:'center'}}>Loading...</p>}
+            {tasks && (tasks.length === 0 ? <h3>No todos yet 📄</h3> : tasks.map(task=> (<Todoitem 
                 key={task.id} 
                 id={task.id} 
                 name={task.name} 
                 completed={task.completed} 
                 handleDblClick={handleDblClick} 
                 deleteTask={deleteTask}
-            />)) }
+            />))) }
         </div>
     );
 }

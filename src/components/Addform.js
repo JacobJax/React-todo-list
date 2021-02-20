@@ -24,7 +24,7 @@ const AddForm = ({addTask}) => {
     return (
         <div className="addForm">
             <form onSubmit={handleSubmit}>
-                <label htmlFor="name" style={{color: '#fff'}}>Add Task</label>
+                <label htmlFor="name" style={{color: '#fff'}}><small>Add Task</small></label>
                 <input type="text" name="todo" value={value} onChange={handleChange}/>
                 <input type="submit" value="Add todo"/>
             </form>
