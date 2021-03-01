@@ -5,7 +5,7 @@
 >This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Description
-React Todo List is a simple todo list app built with react and [json-server](https://github.com/typicode/json-server) as a backend.
+React Todo List is a simple todo list app built with react and [json-server](https://github.com/typicode/json-server) as a fake backend.
 
 It was buitl as part of practise for building frontend apps with [**React Library**](https://reactjs.org/)
 
