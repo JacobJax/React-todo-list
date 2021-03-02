@@ -11,7 +11,7 @@ const Todolist = () => {
     const handleDblClick = async (id) => {
         const task = await getSingleTask(id)
         
-        const res = fetch(`http://localhost:8000/todos/${id}`, {
+        const res = fetch(`https://my-json-server.typicode.com/JacobJax/json-server-API/todos${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -30,7 +30,7 @@ const Todolist = () => {
 
     const addTask = async (taskName) => {
 
-        const res = await fetch('http://localhost:8000/todos',{
+        const res = await fetch('https://my-json-server.typicode.com/JacobJax/json-server-API/todos',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -44,7 +44,7 @@ const Todolist = () => {
 
     const deleteTask = async (taskId) => {
 
-        const res = await fetch(`http://localhost:8000/todos/${taskId}`, {
+        const res = await fetch(`https://my-json-server.typicode.com/JacobJax/json-server-API/todos${taskId}`, {
             method: 'DELETE'
         })
         const newTasks = tasks.filter(task => {
@@ -55,7 +55,7 @@ const Todolist = () => {
 
     const getTasks = async () => {
 
-        const res = await fetch('http://localhost:8000/todos')
+        const res = await fetch('https://my-json-server.typicode.com/JacobJax/json-server-API/todos')
         const data = await res.json()
 
         setTasks(data)
@@ -63,7 +63,7 @@ const Todolist = () => {
     }
 
     const getSingleTask = async (id) => {
-        const res = await fetch(`http://localhost:8000/todos/${id}`)
+        const res = await fetch(`https://my-json-server.typicode.com/JacobJax/json-server-API/todos${id}`)
         return res.json()
     }
 
@@ -92,3 +92,6 @@ const Todolist = () => {
 }
  
 export default Todolist;
+
+// ex-url
+// http://localhost:8000/todos/
